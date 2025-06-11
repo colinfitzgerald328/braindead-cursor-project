@@ -261,7 +261,7 @@ export default function CollabTodoList() {
               items={todos.map(todo => todo.id)} 
               strategy={verticalListSortingStrategy}
             >
-              <ul className="todo-list space-y-0.5">
+              <ul className="todo-list space-y-3">
                 {todos.map(todo => (
                   <SortableTodoItem
                     key={todo.id}

@@ -6,7 +6,7 @@ function App() {
       <CollabTodoList />
       
       {/* Footer */}
-      <footer className="absolute bottom-0 inset-x-0 bg-white/80 dark:bg-black/20 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800 p-4">
+      <footer className="fixed bottom-0 inset-x-0 bg-white/80 dark:bg-black/20 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800 p-4">
         <div className="max-w-3xl mx-auto text-center text-sm text-gray-500 dark:text-gray-400">
           <p>
             Built with <span className="text-red-500">♥</span> using React, TypeScript, Yjs, and DnD Kit

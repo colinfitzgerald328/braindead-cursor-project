@@ -105,7 +105,7 @@ const SortableTodoItem: FC<Props> = ({ todo, onToggle, onDelete, onReact, onEdit
       style={style}
       {...attributes}
       className={`rounded-lg 
-          border-gray-200 dark:border-gray-700 p-4 mb-3 bg-white dark:bg-gray-800
+          border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800
           ${isDragging ? 'shadow-lg z-10 border border-primary/20 bg-primary/5' : 'shadow-sm hover:shadow'}
           ${todo.completed ? 'bg-gray-50 dark:bg-gray-800/70' : ''}
           ${isDeleting ? 'opacity-0 transform translate-x-10' : ''}
