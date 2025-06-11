@@ -26,8 +26,7 @@ const SortableTodoItem: FC<Props> = ({ todo, onToggle, onDelete, onReact, onEdit
     setNodeRef,
     transform,
     transition,
-    isDragging,
-    isSorting
+    isDragging
   } = useSortable({ 
     id: todo.id,
     transition: {

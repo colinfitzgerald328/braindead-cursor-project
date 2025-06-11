@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import * as Y from 'yjs';
 import { WebrtcProvider } from 'y-webrtc';
 import { nanoid } from 'nanoid';
-import { DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors } from '@dnd-kit/core';
-import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors, MeasuringStrategy } from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import SortableTodoItem from './SortableTodoItem';
@@ -28,7 +28,6 @@ export default function CollabTodoList() {
   const [peerCount, setPeerCount] = useState<number>(1); // Including self
   const [peerEmojis, setPeerEmojis] = useState<string[]>(['🧑‍💻']);
   const [isSyncing, setIsSyncing] = useState<boolean>(true);
-  const [activeId, setActiveId] = useState<string | null>(null);
 
   // Initialize sensors for drag and drop with optimized settings
   const sensors = useSensors(
@@ -56,8 +55,8 @@ export default function CollabTodoList() {
     setYTodos(yTodosArray);
 
     // Listen for changes to the shared todos array
-    yTodosArray.observe(event => {
-      setTodos(yTodosArray.toArray());
+    yTodosArray.observe(() => {
+      setTodos(yTodosArray.toArray() as Todo[]);
     });
 
     // Initial state if empty
@@ -180,16 +179,13 @@ export default function CollabTodoList() {
   );
 
   // Track active item during drag
-  const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(event.active.id as string);
+  const handleDragStart = () => {
+    // No action needed
   };
   
   // Handle drag end for reordering todos
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    
-    // Reset the active id
-    setActiveId(null);
     
     if (!over || active.id === over.id || !yTodos) return;
 
@@ -210,7 +206,7 @@ export default function CollabTodoList() {
   
   // Handle drag cancel
   const handleDragCancel = () => {
-    setActiveId(null);
+    // No need to reset activeId since it's not used
   };
 
   // Calculate completed todos
@@ -257,7 +253,7 @@ export default function CollabTodoList() {
             modifiers={[restrictToVerticalAxis]}
             measuring={{
               droppable: {
-                strategy: 'always' // Use a more aggressive measuring strategy
+                strategy: MeasuringStrategy.Always
               }
             }}
           >
